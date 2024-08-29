@@ -1,0 +1,42 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Cliente extends Model
+{
+    use HasFactory;
+    // Definir la tabla de la base de datos
+    protected $table = 'clientes';
+    // Definir los campos que se pueden llenar
+    protected $fillable = [
+        'Nombre',
+        'correo',
+        'telefono',
+        'Dirección',
+        'RFC',
+        'Razon_social',
+        'Codigo_postal',
+        'Regimen_fiscal'
+    ];
+
+    public function cotizaciones()
+    {
+    return $this->hasMany(Cotizacion::class, 'id_cliente');
+
+    }
+
+    public function compras()
+    {
+    return $this->hasMany(Compra::class, 'id_cliente');
+    }
+
+        /**
+     * Obtener las ventas realizadas por el cliente.
+     */
+    public function ventas()
+    {
+        return $this->hasMany(Venta::class);
+    }
+}
